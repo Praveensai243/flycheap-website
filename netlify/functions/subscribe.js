@@ -20,7 +20,7 @@ exports.handler = async (event) => {
       BOOK_BY:      data.bookBy,
       TIER:         data.tier,
     },
-    listIds: [5],
+    listIds: [8],
     updateEnabled: true,
   };
 
