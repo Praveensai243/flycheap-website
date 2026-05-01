@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FlyCheap — India's Best Fare Alerts | fly-cheap.net</title>
+<meta name="description" content="FlyCheap monitors IndiGo, Air India, Akasa & more 24/7. Get instant alerts when fares drop 40%+ below average. India's best flight deal alerts at fly-cheap.net"/>
+<script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://tpembars.com/NTExNzMz.js?t=511733';
+      document.head.appendChild(script);
+  })();
+</script>
+<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+<style>
+  #sib-container input:-ms-input-placeholder { text-align:left; font-family:Helvetica,sans-serif; color:#c0ccda; }
+  #sib-container input::placeholder { text-align:left; font-family:Helvetica,sans-serif; color:#c0ccda; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --night: #080c14;
+  --deep: #0f1520;
+  --card: #131b2a;
+  --card2: #1a2338;
+  --border: rgba(255,255,255,0.08);
+  --saffron: #ff8c00;
+  --saffron-light: #ffb347;
+  --teal: #00c896;
+  --muted: rgba(255,255,255,0.45);
+  --text: rgba(255,255,255,0.92);
+  --serif: 'Sora', sans-serif;
+  --sans: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--night); color: var(--text); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(8,12,20,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-text { font-family: var(--serif); font-size: 20px; font-weight: 900; color: var(--text); }
+.logo-text span { color: var(--saffron); }
+nav ul { list-style: none; display: flex; gap: 28px; }
+nav ul a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+nav ul a:hover { color: var(--text); }
+.nav-cta { background: var(--saffron); color: #000; border: none; padding: 9px 20px; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--sans); transition: all .2s; }
+.nav-cta:hover { background: var(--saffron-light); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  padding: 100px 48px 60px;
+  max-width: 1300px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* glow blobs */
+body::before {
+  content: '';
+  position: fixed; top: -200px; left: -150px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,140,0,0.08) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── LEFT SIDE ── */
+.left { display: flex; flex-direction: column; gap: 20px; padding-top: 20px; position: relative; z-index: 1; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.25);
+  color: var(--saffron-light); font-size: 11px; font-weight: 700;
+  padding: 5px 13px; border-radius: 100px; letter-spacing: .07em;
+  text-transform: uppercase; width: fit-content;
+}
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 900; line-height: 1.1; letter-spacing: -1px;
+}
+h1 em { font-style: italic; color: var(--saffron); }
+.hero-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 420px; }
+
+/* ── FORM CONTAINER (clips the slider) ── */
+.form-outer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;          /* ← THIS is the key fix */
+  position: relative;
+}
+.form-slider {
+  display: flex;
+  width: 200%;
+  transition: transform .45s cubic-bezier(.77, 0, .18, 1);
+}
+.form-page { width: 50%; flex-shrink: 0; padding: 24px; }
+
+/* ── PROGRESS BAR ── */
+.prog { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.prog-step { display: flex; align-items: center; gap: 7px; }
+.pdot {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; font-family: var(--serif);
+  border: 2px solid rgba(255,255,255,0.15); color: var(--muted);
+  transition: all .3s; flex-shrink: 0;
+}
+.pdot.active { background: var(--saffron); border-color: var(--saffron); color: #000; }
+.pdot.done { background: var(--teal); border-color: var(--teal); color: #000; }
+.plbl { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.plbl.active { color: var(--text); }
+.pline { flex: 1; height: 1px; background: var(--border); }
+
+/* ── FORM FIELDS ── */
+.fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.fg label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted);
+}
+.fg label em { font-weight: 400; font-style: normal; opacity: .6; text-transform: none; }
+.fg input, .fg select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 10px 14px;
+  color: var(--text); font-size: 14px; font-family: var(--sans);
+  outline: none; transition: border-color .2s; width: 100%;
+  -webkit-appearance: none;
+}
+.fg input:focus, .fg select:focus { border-color: rgba(255,140,0,0.5); }
+.fg input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.5); cursor: pointer; }
+.fg input::placeholder { color: rgba(255,255,255,0.2); }
+.fg select option { background: #1a2336; }
+.hint { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ── AIRPORT AUTOCOMPLETE ── */
+.ap-wrap { position: relative; }
+.ap-dd {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 500;
+  background: #1e2d45; border: 1px solid rgba(255,140,0,0.25); border-radius: 8px;
+  max-height: 180px; overflow-y: auto; display: none;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+}
+.ap-dd.open { display: block; }
+.ap-opt {
+  padding: 9px 12px; cursor: pointer; font-size: 13px; line-height: 1.4;
+  border-bottom: 1px solid rgba(255,255,255,0.04); transition: background .12s;
+}
+.ap-opt:last-child { border-bottom: none; }
+.ap-opt:hover, .ap-opt.hi { background: rgba(255,140,0,0.1); }
+.ap-opt .c { font-weight: 800; color: var(--saffron); margin-right: 5px; font-size: 12px; }
+.ap-opt .s { color: var(--muted); font-size: 11px; }
+.sel-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(0,200,150,0.1); border: 1px solid rgba(0,200,150,0.2);
+  color: var(--teal); font-size: 11px; font-weight: 700;
+  padding: 3px 8px; border-radius: 4px; margin-top: 4px;
+}
+
+/* ── FLEX BUTTONS ── */
+.flex-opts { display: flex; gap: 6px; flex-wrap: wrap; }
+.fb {
+  padding: 6px 12px; border-radius: 7px; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03); color: var(--muted);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: all .2s; font-family: var(--sans);
+}
+.fb:hover { border-color: rgba(255,140,0,0.3); color: var(--text); }
+.fb.active { border-color: rgba(255,140,0,0.5); background: rgba(255,140,0,0.1); color: var(--saffron-light); }
+
+/* ── PRICE ROW ── */
+.prow { display: flex; gap: 8px; align-items: center; }
+.prow .rs { color: var(--muted); font-size: 18px; font-weight: 600; flex-shrink: 0; }
+
+/* ── NOTIFICATION TOGGLES ── */
+.nlbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); display: block; margin-bottom: 7px; }
+.nopts { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 4px; }
+.nb {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03); color: var(--muted);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  transition: all .2s; font-family: var(--sans);
+}
+.nb.active { border-color: rgba(255,140,0,0.5); background: rgba(255,140,0,0.1); color: var(--saffron-light); }
+.nb.locked { opacity: .4; cursor: not-allowed; }
+.ltag { font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 3px; background: rgba(255,140,0,0.2); color: var(--saffron); }
+
+/* ── TRIP SUMMARY ── */
+.summary {
+  background: rgba(255,140,0,0.07); border: 1px solid rgba(255,140,0,0.18);
+  border-radius: 8px; padding: 9px 13px; margin-bottom: 14px;
+  font-size: 13px; color: var(--saffron-light); line-height: 1.6;
+}
+
+/* ── TIER CARDS ── */
+.tiers { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+.tc {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 13px; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 10px;
+}
+.tc:hover { border-color: rgba(255,140,0,0.3); }
+.tc.sel { border-color: rgba(255,140,0,0.6); background: rgba(255,140,0,0.07); }
+.trad {
+  width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.tc.sel .trad { border-color: var(--saffron); }
+.tdot { width: 7px; height: 7px; border-radius: 50%; background: var(--saffron); opacity: 0; transition: opacity .2s; }
+.tc.sel .tdot { opacity: 1; }
+.ti { flex: 1; }
+.tn { font-size: 13px; font-weight: 700; font-family: var(--serif); }
+.td { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.tp { font-size: 13px; font-weight: 700; color: var(--saffron); white-space: nowrap; }
+.tbadge { font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 100px; background: var(--saffron); color: #000; margin-left: 4px; }
+
+/* ── BUTTONS ── */
+.btn-p {
+  width: 100%; background: var(--saffron); color: #000; border: none;
+  padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 700;
+  cursor: pointer; font-family: var(--serif); transition: all .2s; margin-top: 4px;
+}
+.btn-p:hover { background: var(--saffron-light); transform: translateY(-1px); }
+.btn-s {
+  background: transparent; color: var(--muted); border: 1px solid var(--border);
+  padding: 11px 20px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: var(--sans); transition: all .2s;
+}
+.btn-s:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.brow { display: flex; gap: 10px; margin-top: 6px; }
+.brow .btn-s { flex: 1; }
+.brow .btn-p { flex: 2; margin-top: 0; }
+
+.trust { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.trust strong { color: var(--teal); }
+
+/* ── SUCCESS ── */
+.succ { display: none; padding: 44px 28px; text-align: center; }
+.succ.vis { display: block; }
+.succ .si { font-size: 48px; margin-bottom: 14px; }
+.succ h3 { font-family: var(--serif); font-size: 22px; font-weight: 900; margin-bottom: 10px; }
+.succ p { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 300px; margin: 0 auto; }
+
+/* ── RIGHT SIDE ── */
+.right { display: flex; flex-direction: column; gap: 24px; padding-top: 20px; position: relative; z-index: 1; }
+
+.right-title { font-family: var(--serif); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--saffron); }
+
+/* DEAL CARDS (right column stack) */
+.dstack { display: flex; flex-direction: column; gap: 12px; animation: float 7s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+.dc {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px 18px;
+  transition: border-color .3s; position: relative; overflow: hidden;
+}
+.dc::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--saffron), var(--teal)); opacity: 0; transition: opacity .3s;
+}
+.dc:hover { border-color: rgba(255,140,0,0.3); }
+.dc:hover::before { opacity: 1; }
+.dtag { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+.droute { font-family: var(--serif); font-size: 17px; font-weight: 800; margin-bottom: 2px; }
+.dmeta { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.dbottom { display: flex; justify-content: space-between; align-items: flex-end; }
+.dprice { font-size: 24px; font-weight: 700; color: var(--teal); }
+.dwas { font-size: 11px; color: var(--muted); text-decoration: line-through; display: block; }
+.dpill { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; }
+
+/* ── TICKER ── */
+.ticker-wrap {
+  background: rgba(255,140,0,0.06);
+  border-top: 1px solid rgba(255,140,0,0.12);
+  border-bottom: 1px solid rgba(255,140,0,0.12);
+  padding: 10px 0; overflow: hidden; white-space: nowrap;
+}
+.ticker-inner { display: inline-flex; gap: 52px; animation: tick 28s linear infinite; }
+@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ti { font-size: 13px; font-weight: 500; color: var(--saffron-light); display: inline-flex; align-items: center; gap: 7px; }
+.tdot2 { width: 4px; height: 4px; background: var(--saffron); border-radius: 50%; flex-shrink: 0; }
+
+/* ── LIVE DEALS SECTION ── */
+.live-section { padding: 80px 48px; max-width: 1300px; margin: 0 auto; }
+.slbl { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--saffron); margin-bottom: 12px; }
+.stitle { font-family: var(--serif); font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; line-height: 1.12; letter-spacing: -.5px; margin-bottom: 32px; }
+
+.dgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.df {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; transition: all .3s; cursor: pointer;
+}
+.df:hover { border-color: rgba(255,140,0,0.28); transform: translateY(-4px); }
+.dfh { display: flex; justify-content: space-between; margin-bottom: 12px; }
+.ach { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,0.06); color: var(--muted); }
+.sp { background: rgba(0,200,150,0.12); color: var(--teal); font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+.dfr { font-family: var(--serif); font-size: 19px; font-weight: 900; margin-bottom: 3px; }
+.dfs { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+.dfp { font-size: 28px; font-weight: 700; color: var(--teal); }
+.dfw { font-size: 12px; color: var(--muted); text-decoration: line-through; margin-left: 8px; }
+.dff { border-top: 1px solid var(--border); padding-top: 10px; display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 12px; }
+.df.lk { position: relative; overflow: hidden; }
+.lov { position: absolute; inset: 0; background: rgba(8,12,20,0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; border-radius: 16px; backdrop-filter: blur(3px); }
+.li { font-size: 22px; opacity: .7; }
+.ll { font-size: 13px; font-weight: 700; color: var(--saffron); }
+.ls { font-size: 11px; color: var(--muted); text-align: center; max-width: 130px; line-height: 1.4; }
+
+/* ── HOW IT WORKS ── */
+.how-section { background: var(--deep); padding: 80px 48px; }
+.how-inner { max-width: 1300px; margin: 0 auto; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 0; }
+.step {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 26px 22px; transition: all .3s;
+}
+.step:hover { border-color: rgba(255,140,0,0.2); transform: translateY(-4px); }
+.snum { font-family: var(--serif); font-size: 40px; font-weight: 900; color: rgba(255,140,0,0.1); line-height: 1; margin-bottom: 14px; }
+.step h3 { font-family: var(--serif); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.step p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ── PRICING ── */
+.price-section { padding: 80px 48px; max-width: 1300px; margin: 0 auto; }
+.pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.pc { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 22px; display: flex; flex-direction: column; transition: transform .3s; position: relative; }
+.pc:hover { transform: translateY(-4px); }
+.pc.feat { border-color: rgba(255,140,0,0.4); background: linear-gradient(150deg, rgba(255,140,0,0.08) 0%, var(--card) 55%); }
+.fbdg { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--saffron); color: #000; font-size: 10px; font-weight: 800; padding: 3px 14px; border-radius: 100px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; font-family: var(--serif); }
+.pn { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 9px; }
+.pp { font-family: var(--serif); font-size: 36px; font-weight: 900; line-height: 1; margin-bottom: 3px; }
+.pp span { font-size: 15px; font-weight: 400; font-family: var(--sans); }
+.pf { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+.pfl { list-style: none; flex: 1; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+.pfl li { font-size: 13px; display: flex; gap: 7px; align-items: flex-start; line-height: 1.4; }
+.ok { color: var(--teal); flex-shrink: 0; font-weight: 700; }
+.no { color: rgba(255,255,255,0.18); flex-shrink: 0; }
+.dim { color: var(--muted); }
+.chrow { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+.ch { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; }
+.wa { background: rgba(37,211,102,0.12); color: #25d366; }
+.em { background: rgba(56,152,255,0.12); color: #60a5fa; }
+.pu { background: rgba(168,85,247,0.12); color: #c084fc; }
+.sm { background: rgba(251,191,36,0.12); color: #fbbf24; }
+.ca { background: rgba(239,68,68,0.12); color: #f87171; }
+.bpl { width: 100%; padding: 11px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: var(--serif); transition: all .2s; border: 1px solid var(--border); background: transparent; color: var(--text); }
+.bpl:hover { background: rgba(255,255,255,0.04); }
+.bpl.acc { background: var(--saffron); color: #000; border-color: transparent; }
+.bpl.acc:hover { background: var(--saffron-light); }
+
+/* ── WA CTA ── */
+.wa-sec { padding: 64px 48px; max-width: 800px; margin: 0 auto; text-align: center; }
+.wa-box { background: linear-gradient(140deg, rgba(37,211,102,0.08) 0%, var(--card) 55%); border: 1px solid rgba(37,211,102,0.18); border-radius: 24px; padding: 48px 40px; }
+.wai { width: 52px; height: 52px; background: #25d366; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 26px; }
+.wa-box h2 { font-family: var(--serif); font-size: 28px; font-weight: 900; margin-bottom: 10px; letter-spacing: -.5px; }
+.wa-box p { font-size: 15px; color: var(--muted); margin-bottom: 24px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+.bwa { display: inline-flex; align-items: center; gap: 10px; background: #25d366; color: #000; border: none; padding: 13px 30px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: var(--serif); transition: all .2s; text-decoration: none; }
+.bwa:hover { background: #20ba58; transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+.fw { border-top: 1px solid var(--border); }
+footer { max-width: 1300px; margin: 0 auto; padding: 30px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.fl { font-family: var(--serif); font-size: 18px; font-weight: 900; }
+.fl span { color: var(--saffron); }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 28px; right: 28px; background: var(--teal); color: #000; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; transform: translateY(70px); opacity: 0; transition: all .4s cubic-bezier(.34,1.56,.64,1); z-index: 999; font-family: var(--serif); max-width: 300px; line-height: 1.4; }
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── ANIMATIONS ── */
+.fu { opacity: 0; transform: translateY(24px); animation: fadeUp .7s forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.d1 { animation-delay: .1s; } .d2 { animation-delay: .2s; } .d3 { animation-delay: .32s; } .d4 { animation-delay: .45s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { padding: 14px 20px; } nav ul { display: none; }
+  .hero { grid-template-columns: 1fr; gap: 40px; padding: 90px 20px 50px; }
+  .live-section, .price-section { padding: 60px 20px; }
+  .how-section { padding: 60px 20px; }
+  .dgrid, .steps, .pgrid { grid-template-columns: 1fr; }
+  footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+  .wa-sec { padding: 50px 20px; } .wa-box { padding: 32px 20px; }
+  .two { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <svg width="28" height="32" viewBox="0 0 80 90">
+      <defs><linearGradient id="ng" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF6B00"/><stop offset="100%" stop-color="#FFAA00"/></linearGradient></defs>
+      <polygon points="8,74 40,4 40,44" fill="url(#ng)" opacity="0.85"/>
+      <polygon points="72,74 40,4 40,44" fill="url(#ng)"/>
+      <rect x="14" y="42" width="52" height="6" rx="3" fill="white" opacity="0.9"/>
+      <polygon points="40,74 72,74 58,86" fill="#FFAA00" opacity="0.65"/>
+    </svg>
+    <span class="logo-text">Fly<span>Cheap</span></span>
+  </a>
+  <ul>
+    <li><a href="#deals">Deals</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <button class="nav-cta" onclick="scrollToForm()">Get free alerts</button>
+</nav>
+
+<!-- HERO: LEFT + RIGHT -->
+<div class="hero">
+
+  <!-- ══ LEFT: Headline + Form ══ -->
+  <div class="left">
+    <div class="badge fu">India's best fare alerts</div>
+    <h1 class="fu d1">Stop paying<br/>full price for<br/><em>flights.</em></h1>
+    <p class="hero-sub fu d2">FlyCheap watches IndiGo, Air India, Akasa & 8 more airlines 24/7. When fares drop 40%+ below average — you're first to know.</p>
+
+    <!-- FORM OUTER (overflow:hidden clips slider) -->
+    <div class="form-outer fu d3" id="formOuter">
+
+      <!-- slider holds BOTH pages side by side -->
+      <div class="form-slider" id="slider">
+
+        <!-- ══ PAGE 1: TRAVEL DETAILS ══ -->
+        <div class="form-page">
+          <div class="prog">
+            <div class="prog-step"><div class="pdot active">1</div><span class="plbl active">Travel details</span></div>
+            <div class="pline"></div>
+            <div class="prog-step"><div class="pdot">2</div><span class="plbl">Your details</span></div>
+          </div>
+
+          <div class="two">
+            <div class="fg">
+              <label>Flying from</label>
+              <div class="ap-wrap">
+                <input type="text" id="fi" placeholder="City or airport code..." autocomplete="off"
+                  oninput="filter('f')" onfocus="open_('f')" onblur="close_('f')" onkeydown="nav_(event,'f')"/>
+                <div class="ap-dd" id="fdd"></div>
+              </div>
+              <div id="ft"></div>
+            </div>
+            <div class="fg">
+              <label>Flying to</label>
+              <div class="ap-wrap">
+                <input type="text" id="ti" placeholder="City or airport code..." autocomplete="off"
+                  oninput="filter('t')" onfocus="open_('t')" onblur="close_('t')" onkeydown="nav_(event,'t')"/>
+                <div class="ap-dd" id="tdd"></div>
+              </div>
+              <div id="tt"></div>
+            </div>
+          </div>
+
+          <div class="two">
+            <div class="fg">
+              <label>Departure date</label>
+              <input type="date" id="dep"/>
+            </div>
+            <div class="fg">
+              <label>Return date <em>(optional)</em></label>
+              <input type="date" id="ret"/>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label>Date flexibility</label>
+            <div class="flex-opts">
+              <button class="fb active" data-f="0" onclick="setF(this)">Exact dates</button>
+              <button class="fb" data-f="1" onclick="setF(this)">± 1 day</button>
+              <button class="fb" data-f="2" onclick="setF(this)">± 2 days</button>
+              <button class="fb" data-f="3" onclick="setF(this)">± 3 days</button>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label>I want to book by <em>(optional)</em></label>
+            <input type="date" id="bby"/>
+            <p class="hint">We'll stop alerting you after this date.</p>
+          </div>
+
+          <div class="fg">
+            <label>Max price cutoff <em>(optional)</em></label>
+            <div class="prow"><span class="rs">₹</span><input type="number" id="mp" placeholder="e.g. 8000 — only alert me below this"/></div>
+          </div>
+
+          <button class="btn-p" onclick="goNext()">Continue — My details →</button>
+        </div>
+
+        <!-- ══ PAGE 2: YOUR DETAILS ══ -->
+        <div class="form-page">
+          <div class="prog">
+            <div class="prog-step"><div class="pdot done">✓</div><span class="plbl">Travel details</span></div>
+            <div class="pline"></div>
+            <div class="prog-step"><div class="pdot active">2</div><span class="plbl active">Your details</span></div>
+          </div>
+
+          <div class="summary" id="summ"></div>
+
+          <div class="two">
+            <div class="fg"><label>First name</label><input type="text" id="fn" placeholder="Arjun"/></div>
+            <div class="fg"><label>Last name</label><input type="text" id="ln" placeholder="Sharma"/></div>
+          </div>
+          <div class="two">
+            <div class="fg"><label>Email</label><input type="email" id="em" placeholder="you@email.com"/></div>
+            <div class="fg"><label>Phone</label><input type="tel" id="ph" placeholder="+91 98765 43210"/></div>
+          </div>
+
+          <div class="fg">
+            <span class="nlbl">Alert me via</span>
+            <div class="nopts">
+              <button class="nb active" data-c="email" onclick="tog(this)">✉️ Email</button>
+              <button class="nb active" data-c="push" onclick="tog(this)">🔔 Push</button>
+              <button class="nb locked" data-c="wa" onclick="tog(this)">💬 WhatsApp <span class="ltag">Pro+</span></button>
+              <button class="nb locked" data-c="sms" onclick="tog(this)">📱 SMS <span class="ltag">Pro+</span></button>
+              <button class="nb locked" data-c="call" onclick="tog(this)">📞 Call <span class="ltag">Elite</span></button>
+            </div>
+            <p style="font-size:11px;color:rgba(255,140,0,0.6);margin-top:4px;">🔒 WhatsApp & Call available on paid plans only</p>
+          </div>
+
+          <div class="fg">
+            <label>Choose your plan</label>
+            <div class="tiers">
+              <div class="tc sel" data-tier="free" onclick="pickTier(this)">
+                <div class="trad"><div class="tdot"></div></div>
+                <div class="ti"><div class="tn">Free</div><div class="td">Email + Push · Economy deals · 4hr delay</div></div>
+                <div class="tp">₹0</div>
+              </div>
+              <div class="tc" data-tier="pro" onclick="pickTier(this)">
+                <div class="trad"><div class="tdot"></div></div>
+                <div class="ti"><div class="tn">Pro <span class="tbadge">Popular</span></div><div class="td">WhatsApp + SMS · Instant · Business class</div></div>
+                <div class="tp">₹999/yr</div>
+              </div>
+              <div class="tc" data-tier="elite" onclick="pickTier(this)">
+                <div class="trad"><div class="tdot"></div></div>
+                <div class="ti"><div class="tn">Elite</div><div class="td">All channels incl. Calls · First class</div></div>
+                <div class="tp">₹1,999/yr</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="brow">
+            <button class="btn-s" onclick="goBack()">← Back</button>
+            <button class="btn-p" onclick="submit()">Get my alerts ✈</button>
+          </div>
+        </div>
+
+      </div><!-- /slider -->
+
+      <!-- SUCCESS (shown after submit) -->
+      <div class="succ" id="succ">
+        <div class="si">🎉</div>
+        <h3>You're on the list!</h3>
+        <p id="succMsg"></p>
+      </div>
+
+    </div><!-- /form-outer -->
+
+    <p class="trust fu d4"><strong>Free forever</strong> &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; Unsubscribe anytime</p>
+  </div>
+
+  <!-- ══ RIGHT: Deal Cards ══ -->
+  <div class="right">
+    <p class="right-title fu">🔥 Hot deals right now</p>
+    <div class="dstack fu d1">
+      <div class="dc">
+        <div class="dtag" style="color:var(--saffron);">🔥 Hot deal — 63% off</div>
+        <div class="droute">Mumbai → Bangkok</div>
+        <div class="dmeta">IndiGo · Nonstop · Round trip · BOM → BKK</div>
+        <div class="dbottom">
+          <div><div class="dprice">₹6,800</div><span class="dwas">was ₹18,500</span></div>
+          <span class="dpill" style="background:rgba(0,200,150,.12);color:var(--teal);border:1px solid rgba(0,200,150,.2);">Book now</span>
+        </div>
+      </div>
+      <div class="dc">
+        <div class="dtag" style="color:var(--teal);">✦ International deal</div>
+        <div class="droute">Delhi → Dubai</div>
+        <div class="dmeta">Air India · Nonstop · Round trip · DEL → DXB</div>
+        <div class="dbottom">
+          <div><div class="dprice" style="color:var(--saffron-light);">₹11,400</div><span class="dwas">was ₹28,000</span></div>
+          <span class="dpill" style="background:rgba(255,140,0,.1);color:var(--saffron-light);border:1px solid rgba(255,140,0,.2);">59% off</span>
+        </div>
+      </div>
+      <div class="dc">
+        <div class="dtag" style="color:#c084fc;">✦ Domestic flash sale</div>
+        <div class="droute">Bengaluru → Goa</div>
+        <div class="dmeta">IndiGo · Nonstop · One way · BLR → GOI</div>
+        <div class="dbottom">
+          <div><div class="dprice" style="color:#c084fc;">₹1,299</div><span class="dwas">was ₹4,800</span></div>
+          <span class="dpill" style="background:rgba(192,132,252,.1);color:#c084fc;border:1px solid rgba(192,132,252,.2);">73% off</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /hero -->
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ti"><span class="tdot2"></span>Mumbai → Bali ₹9,200 (was ₹28,000)</span>
+    <span class="ti"><span class="tdot2"></span>Chennai → Singapore ₹7,800 (was ₹21,000)</span>
+    <span class="ti"><span class="tdot2"></span>Hyderabad → London ₹38,000 (was ₹92,000)</span>
+    <span class="ti"><span class="tdot2"></span>Delhi → Tokyo ₹22,000 (was ₹65,000)</span>
+    <span class="ti"><span class="tdot2"></span>Pune → Bangkok ₹8,100 (was ₹24,000)</span>
+    <span class="ti"><span class="tdot2"></span>Kolkata → KL ₹6,500 (was ₹19,000)</span>
+    <span class="ti"><span class="tdot2"></span>Ahmedabad → Dubai ₹9,900 (was ₹26,000)</span>
+    <span class="ti"><span class="tdot2"></span>Mumbai → Bali ₹9,200 (was ₹28,000)</span>
+    <span class="ti"><span class="tdot2"></span>Chennai → Singapore ₹7,800 (was ₹21,000)</span>
+    <span class="ti"><span class="tdot2"></span>Hyderabad → London ₹38,000 (was ₹92,000)</span>
+    <span class="ti"><span class="tdot2"></span>Delhi → Tokyo ₹22,000 (was ₹65,000)</span>
+    <span class="ti"><span class="tdot2"></span>Pune → Bangkok ₹8,100 (was ₹24,000)</span>
+    <span class="ti"><span class="tdot2"></span>Kolkata → KL ₹6,500 (was ₹19,000)</span>
+    <span class="ti"><span class="tdot2"></span>Ahmedabad → Dubai ₹9,900 (was ₹26,000)</span>
+  </div>
+</div>
+
+<!-- LIVE DEALS SECTION -->
+<div id="deals">
+  <div class="live-section">
+    <p class="slbl">Today's deals</p>
+    <h2 class="stitle">Live flight deals right now</h2>
+    <div class="dgrid">
+      <div class="df">
+        <div class="dfh"><span class="ach">IndiGo</span><span class="sp">−63%</span></div>
+        <div class="dfr">Mumbai → Bangkok</div>
+        <div class="dfs">BOM → BKK · Nonstop · Round trip · Travel: Mar–Apr</div>
+        <div><span class="dfp">₹6,800</span><span class="dfw">₹18,500</span></div>
+        <div class="dff"><span><strong>Nonstop</strong></span><span>Expires <strong>3h 12m</strong></span><span><strong>Economy</strong></span></div>
+      </div>
+      <div class="df">
+        <div class="dfh"><span class="ach">Air India</span><span class="sp">−59%</span></div>
+        <div class="dfr">Delhi → Dubai</div>
+        <div class="dfs">DEL → DXB · Nonstop · Round trip · Travel: Apr</div>
+        <div><span class="dfp" style="color:var(--saffron-light);">₹11,400</span><span class="dfw">₹27,800</span></div>
+        <div class="dff"><span><strong>Nonstop</strong></span><span>Expires <strong>5h 40m</strong></span><span><strong>Economy</strong></span></div>
+      </div>
+      <div class="df lk">
+        <div class="dfh"><span class="ach">Akasa Air</span><span class="sp">−71%</span></div>
+        <div class="dfr">Bengaluru → London</div>
+        <div class="dfs">BLR → LHR · 1 stop · Round trip</div>
+        <div><span class="dfp">₹●●,●●●</span></div>
+        <div class="dff"><span><strong>Business class</strong></span><span><strong>Pro only</strong></span></div>
+        <div class="lov"><div class="li">🔒</div><div class="ll">Pro deal</div><div class="ls">Upgrade to unlock business class deals</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div id="how" class="how-section">
+  <div class="how-inner">
+    <p class="slbl">Simple as it gets</p>
+    <h2 class="stitle">How FlyCheap works</h2>
+    <div class="steps">
+      <div class="step"><div class="snum">01</div><h3>Tell us your route</h3><p>Enter departure city, destination, dates and how flexible you are. We cover Tier-2 cities other platforms ignore completely.</p></div>
+      <div class="step"><div class="snum">02</div><h3>We watch fares 24/7</h3><p>Our engine monitors 1,000+ routes across IndiGo, Air India, Akasa, SpiceJet and international carriers — tracking price history to know what "cheap" really means.</p></div>
+      <div class="step"><div class="snum">03</div><h3>You get instant alerts</h3><p>When fares drop 40%+ below average we alert you instantly. Pro members hear hours before everyone else — sometimes before prices bounce back.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing">
+  <div class="price-section">
+    <p class="slbl">Simple pricing</p>
+    <h2 class="stitle">Pick your plan</h2>
+    <div class="pgrid">
+      <div class="pc">
+        <p class="pn">Free</p><div class="pp">₹0</div><p class="pf">Forever free</p>
+        <ul class="pfl">
+          <li><span class="ok">✓</span> Economy deals only</li>
+          <li><span class="ok">✓</span><span>Alerts via:<div class="chrow"><span class="ch em">Email</span><span class="ch pu">Push</span></div></span></li>
+          <li class="dim"><span class="no">✗</span> WhatsApp alerts (Pro+)</li>
+          <li class="dim"><span class="no">✗</span> Call alerts (Elite only)</li>
+          <li class="dim"><span class="no">✗</span> Alerts delayed by 4 hours</li>
+          <li class="dim"><span class="no">✗</span> Business class deals</li>
+        </ul>
+        <button class="bpl" onclick="scrollToForm()">Start free</button>
+      </div>
+      <div class="pc feat">
+        <div class="fbdg">Most popular</div>
+        <p class="pn">Pro</p><div class="pp">₹999 <span>/yr</span></div><p class="pf">Less than ₹84/month</p>
+        <ul class="pfl">
+          <li><span class="ok">✓</span> Everything in Free</li>
+          <li><span class="ok">✓</span> <strong>Instant</strong> alerts — no delay</li>
+          <li><span class="ok">✓</span><span>Alerts via:<div class="chrow"><span class="ch wa">WhatsApp</span><span class="ch em">Email</span><span class="ch pu">Push</span><span class="ch sm">SMS</span></div></span></li>
+          <li><span class="ok">✓</span> Economy + Business class</li>
+          <li><span class="ok">✓</span> All international routes</li>
+          <li><span class="ok">✓</span> Tier-2 city departures</li>
+          <li class="dim"><span class="no">✗</span> Call alerts (Elite only)</li>
+        </ul>
+        <button class="bpl acc" onclick="toast_('Pro plan coming soon! Sign up free to be first.')">Go Pro ✈</button>
+      </div>
+      <div class="pc">
+        <p class="pn">Elite</p><div class="pp">₹1,999 <span>/yr</span></div><p class="pf">For frequent flyers</p>
+        <ul class="pfl">
+          <li><span class="ok">✓</span> Everything in Pro</li>
+          <li><span class="ok">✓</span><span>Alerts via:<div class="chrow"><span class="ch wa">WhatsApp</span><span class="ch em">Email</span><span class="ch pu">Push</span><span class="ch sm">SMS</span><span class="ch ca">Call</span></div></span></li>
+          <li><span class="ok">✓</span> First + Business class</li>
+          <li><span class="ok">✓</span> Personalised watchlist</li>
+          <li><span class="ok">✓</span> Error fare alerts</li>
+          <li><span class="ok">✓</span> Festival deal calendar</li>
+        </ul>
+        <button class="bpl" onclick="toast_('Elite plan coming soon! Sign up free to be first.')">Get Elite</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WA CTA -->
+<div class="wa-sec">
+  <div class="wa-box">
+    <div class="wai">💬</div>
+    <h2>Join the WhatsApp channel</h2>
+    <p>Instant flight deal alerts on WhatsApp. No spam — only real deals, verified by humans.</p>
+    <a class="bwa" href="#" onclick="toast_('WhatsApp channel launching soon! Sign up above to be first.'); return false;">Join on WhatsApp</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="fw">
+  <footer>
+    <div><div class="fl">Fly<span>Cheap</span></div><p style="margin-top:3px;font-size:12px;color:var(--muted);">India's best fare alerts</p></div>
+    <p style="font-size:13px;color:var(--muted);">Built for Indian travelers. Deals for everyone.</p>
+    <div style="text-align:right;">
+      <p style="font-size:13px;color:var(--saffron);">www.fly-cheap.net</p>
+      <p style="font-size:12px;color:var(--muted);">© 2026 FlyCheap India</p>
+    </div>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Hidden Brevo form — submits in background when user signs up -->
+<div style="display:none;">
+  <form id="sib-form" method="POST" action="https://6b781cf5.sibforms.com/serve/MUIFAH0LrTQTwXbc2nGMKtnseZAzh_a7fZFHm6mdo4MlqHrMChaBKs8P0qItPuqY2GF7XhpB5iMJpKBwhUUQ9HMWevqgasSQLgzpP2Gr9pGN_p_m5mi68TEp_rGGYnGXiBgyYwuXzJl5FaYKRgqGLDRfPqU3W6r2b39ns2pkKs5HkrqRrWnFdBtTZ0IKeAAd7jggzoAGhWuP0Qg0nw==" data-type="subscription">
+    <!-- Basic fields -->
+    <input type="text"   name="FIRSTNAME"         id="sib-FIRSTNAME"/>
+    <input type="text"   name="LASTNAME"           id="sib-LASTNAME"/>
+    <input type="text"   name="EMAIL"              id="sib-EMAIL"/>
+    <input type="text"   name="SMS"                id="sib-SMS"/>
+    <input type="text"   name="SMS__COUNTRY_CODE"  value="+91"/>
+    <!-- Custom attributes -->
+    <input type="text"   name="FROM_AIRPORT"       id="sib-FROM_AIRPORT"/>
+    <input type="text"   name="TO_AIRPORT"         id="sib-TO_AIRPORT"/>
+    <input type="text"   name="DEP_DATE"           id="sib-DEP_DATE"/>
+    <input type="text"   name="RET_DATE"           id="sib-RET_DATE"/>
+    <input type="text"   name="MAX_PRICE"          id="sib-MAX_PRICE"/>
+    <input type="text"   name="FLEX_DAYS"          id="sib-FLEX_DAYS"/>
+    <input type="text"   name="BOOK_BY"            id="sib-BOOK_BY"/>
+    <input type="text"   name="TIER"               id="sib-TIER"/>
+    <input type="text"   name="email_address_check" value=""/>
+    <input type="hidden" name="locale"             value="en"/>
+    <button type="submit" id="sib-submit-btn">Subscribe</button>
+  </form>
+</div>
+
+<script>
+  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
+  window.LOCALE = 'en';
+  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+  window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank.";
+  window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+  window.translation = { common: { selectedList: '{quantity} list selected', selectedLists: '{quantity} lists selected', selectedOption: '{quantity} selected', selectedOptions: '{quantity} selected' } };
+  var AUTOHIDE = Boolean(0);
+</script>
+<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+
+<script>
+// ── AIRPORT DATA ──────────────────────────────────────
+const AP = [
+  {code:'BOM',city:'Mumbai',name:'Chhatrapati Shivaji Maharaj Intl',state:'Maharashtra'},
+  {code:'DEL',city:'Delhi',name:'Indira Gandhi International',state:'Delhi'},
+  {code:'BLR',city:'Bengaluru',name:'Kempegowda International',state:'Karnataka'},
+  {code:'MAA',city:'Chennai',name:'Chennai International',state:'Tamil Nadu'},
+  {code:'HYD',city:'Hyderabad',name:'Rajiv Gandhi International',state:'Telangana'},
+  {code:'CCU',city:'Kolkata',name:'Netaji Subhas Chandra Bose Intl',state:'West Bengal'},
+  {code:'COK',city:'Kochi',name:'Cochin International',state:'Kerala'},
+  {code:'PNQ',city:'Pune',name:'Pune International',state:'Maharashtra'},
+  {code:'AMD',city:'Ahmedabad',name:'Sardar Vallabhbhai Patel Intl',state:'Gujarat'},
+  {code:'GOI',city:'Goa',name:'Goa International (Dabolim)',state:'Goa'},
+  {code:'GAU',city:'Guwahati',name:'Lokpriya Gopinath Bordoloi Intl',state:'Assam'},
+  {code:'JAI',city:'Jaipur',name:'Jaipur International',state:'Rajasthan'},
+  {code:'LKO',city:'Lucknow',name:'Chaudhary Charan Singh Intl',state:'Uttar Pradesh'},
+  {code:'BBI',city:'Bhubaneswar',name:'Biju Patnaik International',state:'Odisha'},
+  {code:'IXC',city:'Chandigarh',name:'Chandigarh International',state:'Punjab'},
+  {code:'TRV',city:'Thiruvananthapuram',name:'Trivandrum International',state:'Kerala'},
+  {code:'IXM',city:'Madurai',name:'Madurai Airport',state:'Tamil Nadu'},
+  {code:'VTZ',city:'Visakhapatnam',name:'Visakhapatnam Airport',state:'Andhra Pradesh'},
+  {code:'NAG',city:'Nagpur',name:'Dr. Babasaheb Ambedkar Intl',state:'Maharashtra'},
+  {code:'RPR',city:'Raipur',name:'Swami Vivekananda Airport',state:'Chhattisgarh'},
+  {code:'IXR',city:'Ranchi',name:'Birsa Munda Airport',state:'Jharkhand'},
+  {code:'PAT',city:'Patna',name:'Jay Prakash Narayan Intl',state:'Bihar'},
+  {code:'SXR',city:'Srinagar',name:'Sheikh ul-Alam Airport',state:'Jammu & Kashmir'},
+  {code:'IXL',city:'Leh',name:'Kushok Bakula Rimpochee Airport',state:'Ladakh'},
+  {code:'ATQ',city:'Amritsar',name:'Sri Guru Ram Dass Jee Intl',state:'Punjab'},
+  {code:'IDR',city:'Indore',name:'Devi Ahilyabai Holkar Airport',state:'Madhya Pradesh'},
+  {code:'BHO',city:'Bhopal',name:'Raja Bhoj Airport',state:'Madhya Pradesh'},
+  {code:'VNS',city:'Varanasi',name:'Lal Bahadur Shastri Intl',state:'Uttar Pradesh'},
+  {code:'AGR',city:'Agra',name:'Agra Airport',state:'Uttar Pradesh'},
+  {code:'DED',city:'Dehradun',name:'Jolly Grant Airport',state:'Uttarakhand'},
+  {code:'IMF',city:'Imphal',name:'Bir Tikendrajit International',state:'Manipur'},
+  {code:'IXB',city:'Bagdogra',name:'Bagdogra Airport',state:'West Bengal'},
+  {code:'IXZ',city:'Port Blair',name:'Veer Savarkar International',state:'Andaman & Nicobar'},
+  {code:'CJB',city:'Coimbatore',name:'Coimbatore International',state:'Tamil Nadu'},
+  {code:'TIR',city:'Tirupati',name:'Tirupati Airport',state:'Andhra Pradesh'},
+  {code:'IXE',city:'Mangaluru',name:'Mangaluru International',state:'Karnataka'},
+  {code:'BDQ',city:'Vadodara',name:'Vadodara Airport',state:'Gujarat'},
+  {code:'STV',city:'Surat',name:'Surat Airport',state:'Gujarat'},
+  {code:'VGA',city:'Vijayawada',name:'Vijayawada Airport',state:'Andhra Pradesh'},
+  {code:'IXJ',city:'Jammu',name:'Jammu Airport',state:'Jammu & Kashmir'},
+  {code:'JLR',city:'Jabalpur',name:'Jabalpur Airport',state:'Madhya Pradesh'},
+  {code:'MYQ',city:'Mysuru',name:'Mysore Airport',state:'Karnataka'},
+  {code:'SAG',city:'Shirdi',name:'Shirdi Airport',state:'Maharashtra'},
+  {code:'DHM',city:'Dharamshala',name:'Gaggal Airport',state:'Himachal Pradesh'},
+  {code:'IXD',city:'Prayagraj',name:'Bamrauli Airport',state:'Uttar Pradesh'},
+  {code:'JDH',city:'Jodhpur',name:'Jodhpur Airport',state:'Rajasthan'},
+  {code:'UDR',city:'Udaipur',name:'Maharana Pratap Airport',state:'Rajasthan'},
+  {code:'GWL',city:'Gwalior',name:'Gwalior Airport',state:'Madhya Pradesh'},
+  {code:'HBX',city:'Hubli',name:'Hubli Airport',state:'Karnataka'},
+  {code:'RJA',city:'Rajahmundry',name:'Rajahmundry Airport',state:'Andhra Pradesh'},
+];
+
+// ── STATE ────────────────────────────────────────────
+let fCode='', tCode='', flex=0, tier='free';
+let timers={f:null,t:null}, hi={f:-1,t:-1}, matches={f:[],t:[]};
+
+// Set min dates to today
+const today = new Date().toISOString().split('T')[0];
+['dep','ret','bby'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.min = today;
+});
+document.getElementById('dep').addEventListener('change', function(){
+  document.getElementById('ret').min = this.value;
+});
+
+// ── AIRPORT AUTOCOMPLETE ─────────────────────────────
+function inputEl(d){ return document.getElementById(d==='f'?'fi':'ti'); }
+function ddEl(d){ return document.getElementById(d+'dd'); }
+function tagEl(d){ return document.getElementById(d+'t'); }
+
+function filter(d){
+  const q = inputEl(d).value.toLowerCase().trim();
+  if(!q){ ddEl(d).classList.remove('open'); return; }
+  matches[d] = AP.filter(a =>
+    a.code.toLowerCase().includes(q) || a.city.toLowerCase().includes(q) ||
+    a.state.toLowerCase().includes(q) || a.name.toLowerCase().includes(q)
+  ).slice(0,8);
+  if(!matches[d].length){ ddEl(d).classList.remove('open'); return; }
+  hi[d] = -1;
+  renderDD(d);
+}
+
+function renderDD(d){
+  ddEl(d).innerHTML = matches[d].map((a,i) =>
+    `<div class="ap-opt${hi[d]===i?' hi':''}" onmousedown="pick('${d}','${a.code}','${a.city}','${a.name}')">
+      <span class="c">${a.code}</span>${a.city}<span class="s"> · ${a.state}</span>
+    </div>`
+  ).join('');
+  ddEl(d).classList.add('open');
+}
+
+function open_(d){ clearTimeout(timers[d]); filter(d); }
+function close_(d){ timers[d] = setTimeout(() => ddEl(d).classList.remove('open'), 180); }
+
+function nav_(e, d){
+  const n = matches[d].length; if(!n) return;
+  if(e.key==='ArrowDown'){ e.preventDefault(); hi[d]=Math.min(hi[d]+1,n-1); renderDD(d); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); hi[d]=Math.max(hi[d]-1,0); renderDD(d); }
+  else if(e.key==='Enter' && hi[d]>=0){ const a=matches[d][hi[d]]; pick(d,a.code,a.city,a.name); }
+  else if(e.key==='Escape'){ ddEl(d).classList.remove('open'); }
+}
+
+function pick(d, code, city, name){
+  inputEl(d).value = city + ' (' + code + ')';
+  ddEl(d).classList.remove('open');
+  tagEl(d).innerHTML = `<span class="sel-tag">${code} — ${name}</span>`;
+  if(d==='f') fCode=code; else tCode=code;
+}
+
+// ── DATE FLEX ─────────────────────────────────────────
+function setF(btn){
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  flex = parseInt(btn.dataset.f);
+}
+
+// ── TIER SELECT ──────────────────────────────────────
+function pickTier(card){
+  document.querySelectorAll('.tc').forEach(c => c.classList.remove('sel'));
+  card.classList.add('sel');
+  tier = card.dataset.tier;
+}
+
+// ── NOTIFICATION TOGGLES ─────────────────────────────
+function tog(btn){
+  const c = btn.dataset.c;
+  if(c==='wa'||c==='sms'){ toast_('💬 WhatsApp & SMS are on Pro & Elite plans. Select a paid tier!'); return; }
+  if(c==='call'){ toast_('📞 Call alerts are exclusive to the Elite plan.'); return; }
+  btn.classList.toggle('active');
+}
+
+// ── PAGE NAVIGATION ──────────────────────────────────
+function goNext(){
+  if(!fCode){ toast_('Please select your departure city.'); return; }
+  if(!tCode){ toast_('Please select your destination city.'); return; }
+  if(!document.getElementById('dep').value){ toast_('Please select a departure date.'); return; }
+  if(fCode===tCode){ toast_('Departure and destination cannot be the same.'); return; }
+
+  // Build summary
+  const dep = document.getElementById('dep').value;
+  const ret = document.getElementById('ret').value;
+  const bby = document.getElementById('bby').value;
+  const mp  = document.getElementById('mp').value;
+  const fl  = flex > 0 ? ` (±${flex}d)` : '';
+  let s = `✈ ${fCode} → ${tCode}  ·  Depart: ${dep}${fl}`;
+  if(ret) s += `  ·  Return: ${ret}`;
+  if(bby) s += `  ·  Book by: ${bby}`;
+  if(mp)  s += `  ·  Max: ₹${Number(mp).toLocaleString('en-IN')}`;
+  document.getElementById('summ').textContent = s;
+
+  // Slide to page 2
+  document.getElementById('slider').style.transform = 'translateX(-50%)';
+  document.getElementById('formOuter').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function goBack(){
+  document.getElementById('slider').style.transform = 'translateX(0)';
+}
+
+// ── SUBMIT ───────────────────────────────────────────
+function submit(){
+  const fn = document.getElementById('fn').value.trim();
+  const ln = document.getElementById('ln').value.trim();
+  const em = document.getElementById('em').value.trim();
+  const ph = document.getElementById('ph').value.trim();
+  if(!fn){ toast_('Please enter your first name.'); return; }
+  if(!ln){ toast_('Please enter your last name.'); return; }
+  if(!em||!em.includes('@')){ toast_('Please enter a valid email.'); return; }
+  if(!ph){ toast_('Please enter your phone number.'); return; }
+
+  // Basic fields
+  document.getElementById('sib-FIRSTNAME').value = fn;
+  document.getElementById('sib-LASTNAME').value  = ln;
+  document.getElementById('sib-EMAIL').value     = em;
+  document.getElementById('sib-SMS').value       = ph.replace(/\D/g,'');
+
+  // Custom attributes from Page 1
+  document.getElementById('sib-FROM_AIRPORT').value = fCode;
+  document.getElementById('sib-TO_AIRPORT').value   = tCode;
+  document.getElementById('sib-DEP_DATE').value     = document.getElementById('dep').value;
+  document.getElementById('sib-RET_DATE').value     = document.getElementById('ret').value;
+  document.getElementById('sib-MAX_PRICE').value    = document.getElementById('mp').value;
+  document.getElementById('sib-FLEX_DAYS').value    = flex;
+  document.getElementById('sib-BOOK_BY').value      = document.getElementById('bby').value;
+  document.getElementById('sib-TIER').value         = tier;
+
+  // Submit to Brevo silently
+  document.getElementById('sib-submit-btn').click();
+
+  // Hide slider, show success
+  document.getElementById('slider').style.display = 'none';
+  const succ = document.getElementById('succ');
+  succ.classList.add('vis');
+  const tMap = {free:'Free', pro:'Pro', elite:'Elite'};
+  document.getElementById('succMsg').textContent =
+    `Hi ${fn}! You're on the ${tMap[tier]} plan. We'll alert you the moment a flight on ${fCode} → ${tCode} is within your budget. Check your inbox for a confirmation.`;
+  toast_('Welcome to FlyCheap, ' + fn + '! ✈');
+}
+
+// ── UTILS ────────────────────────────────────────────
+function scrollToForm(){
+  document.getElementById('formOuter').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function toast_(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// ── SCROLL REVEAL ────────────────────────────────────
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold: 0.1});
+
+document.querySelectorAll('.step, .df, .pc').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .6s ease, transform .6s ease';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
