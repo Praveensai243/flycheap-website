@@ -748,42 +748,6 @@ footer { max-width: 1300px; margin: 0 auto; padding: 30px 48px; display: flex; j
 
 <div class="toast" id="toast"></div>
 
-<!-- Hidden Brevo form — submits in background when user signs up -->
-<div style="display:none;">
-  <form id="sib-form" method="POST" action="https://6b781cf5.sibforms.com/serve/MUIFAH0LrTQTwXbc2nGMKtnseZAzh_a7fZFHm6mdo4MlqHrMChaBKs8P0qItPuqY2GF7XhpB5iMJpKBwhUUQ9HMWevqgasSQLgzpP2Gr9pGN_p_m5mi68TEp_rGGYnGXiBgyYwuXzJl5FaYKRgqGLDRfPqU3W6r2b39ns2pkKs5HkrqRrWnFdBtTZ0IKeAAd7jggzoAGhWuP0Qg0nw==" data-type="subscription">
-    <!-- Basic fields -->
-    <input type="text"   name="FIRSTNAME"         id="sib-FIRSTNAME"/>
-    <input type="text"   name="LASTNAME"           id="sib-LASTNAME"/>
-    <input type="text"   name="EMAIL"              id="sib-EMAIL"/>
-    <input type="text"   name="SMS"                id="sib-SMS"/>
-    <input type="text"   name="SMS__COUNTRY_CODE"  value="+91"/>
-    <!-- Custom attributes -->
-    <input type="text"   name="FROM_AIRPORT"       id="sib-FROM_AIRPORT"/>
-    <input type="text"   name="TO_AIRPORT"         id="sib-TO_AIRPORT"/>
-    <input type="text"   name="DEP_DATE"           id="sib-DEP_DATE"/>
-    <input type="text"   name="RET_DATE"           id="sib-RET_DATE"/>
-    <input type="text"   name="MAX_PRICE"          id="sib-MAX_PRICE"/>
-    <input type="text"   name="FLEX_DAYS"          id="sib-FLEX_DAYS"/>
-    <input type="text"   name="BOOK_BY"            id="sib-BOOK_BY"/>
-    <input type="text"   name="TIER"               id="sib-TIER"/>
-    <input type="text"   name="email_address_check" value=""/>
-    <input type="hidden" name="locale"             value="en"/>
-    <button type="submit" id="sib-submit-btn">Subscribe</button>
-  </form>
-</div>
-
-<script>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-  window.LOCALE = 'en';
-  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-  window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank.";
-  window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-  window.translation = { common: { selectedList: '{quantity} list selected', selectedLists: '{quantity} lists selected', selectedOption: '{quantity} selected', selectedOptions: '{quantity} selected' } };
-  var AUTOHIDE = Boolean(0);
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-<script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
-
 <script>
 // ── AIRPORT DATA ──────────────────────────────────────
 const AP = [
@@ -948,7 +912,7 @@ function goBack(){
 }
 
 // ── SUBMIT ───────────────────────────────────────────
-function submit(){
+async function submit(){
   const fn = document.getElementById('fn').value.trim();
   const ln = document.getElementById('ln').value.trim();
   const em = document.getElementById('em').value.trim();
@@ -958,33 +922,50 @@ function submit(){
   if(!em||!em.includes('@')){ toast_('Please enter a valid email.'); return; }
   if(!ph){ toast_('Please enter your phone number.'); return; }
 
-  // Basic fields
-  document.getElementById('sib-FIRSTNAME').value = fn;
-  document.getElementById('sib-LASTNAME').value  = ln;
-  document.getElementById('sib-EMAIL').value     = em;
-  document.getElementById('sib-SMS').value       = ph.replace(/\D/g,'');
+  // Show loading state
+  const btn = document.querySelector('.brow .btn-p');
+  btn.textContent = 'Saving...';
+  btn.disabled = true;
 
-  // Custom attributes from Page 1
-  document.getElementById('sib-FROM_AIRPORT').value = fCode;
-  document.getElementById('sib-TO_AIRPORT').value   = tCode;
-  document.getElementById('sib-DEP_DATE').value     = document.getElementById('dep').value;
-  document.getElementById('sib-RET_DATE').value     = document.getElementById('ret').value;
-  document.getElementById('sib-MAX_PRICE').value    = document.getElementById('mp').value;
-  document.getElementById('sib-FLEX_DAYS').value    = flex;
-  document.getElementById('sib-BOOK_BY').value      = document.getElementById('bby').value;
-  document.getElementById('sib-TIER').value         = tier;
+  try {
+    const resp = await fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName:   fn,
+        lastName:    ln,
+        email:       em,
+        phone:       ph.replace(/\D/g,''),
+        fromAirport: fCode,
+        toAirport:   tCode,
+        depDate:     document.getElementById('dep').value,
+        retDate:     document.getElementById('ret').value,
+        maxPrice:    document.getElementById('mp').value,
+        flexDays:    flex,
+        bookBy:      document.getElementById('bby').value,
+        tier:        tier,
+      })
+    });
 
-  // Submit to Brevo silently
-  document.getElementById('sib-submit-btn').click();
-
-  // Hide slider, show success
-  document.getElementById('slider').style.display = 'none';
-  const succ = document.getElementById('succ');
-  succ.classList.add('vis');
-  const tMap = {free:'Free', pro:'Pro', elite:'Elite'};
-  document.getElementById('succMsg').textContent =
-    `Hi ${fn}! You're on the ${tMap[tier]} plan. We'll alert you the moment a flight on ${fCode} → ${tCode} is within your budget. Check your inbox for a confirmation.`;
-  toast_('Welcome to FlyCheap, ' + fn + '! ✈');
+    if(resp.ok){
+      // Hide slider, show success
+      document.getElementById('slider').style.display = 'none';
+      const succ = document.getElementById('succ');
+      succ.classList.add('vis');
+      const tMap = {free:'Free', pro:'Pro', elite:'Elite'};
+      document.getElementById('succMsg').textContent =
+        `Hi ${fn}! You're on the ${tMap[tier]} plan. We'll alert you the moment a flight on ${fCode} → ${tCode} is within your budget. Check your inbox for a confirmation.`;
+      toast_('Welcome to FlyCheap, ' + fn + '! ✈');
+    } else {
+      toast_('Something went wrong. Please try again.');
+      btn.textContent = 'Get my alerts ✈';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    toast_('Something went wrong. Please try again.');
+    btn.textContent = 'Get my alerts ✈';
+    btn.disabled = false;
+  }
 }
 
 // ── UTILS ────────────────────────────────────────────
