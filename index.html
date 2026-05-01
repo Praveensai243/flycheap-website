@@ -944,25 +944,24 @@ async function submit(){
   btn.disabled = true;
 
   try {
-    const formData = new FormData();
-    formData.append('form-name',   'flycheap-signup');
-    formData.append('firstName',   fn);
-    formData.append('lastName',    ln);
-    formData.append('email',       em);
-    formData.append('phone',       ph.replace(/\D/g,''));
-    formData.append('fromAirport', fCode);
-    formData.append('toAirport',   tCode);
-    formData.append('depDate',     document.getElementById('dep').value);
-    formData.append('retDate',     document.getElementById('ret').value);
-    formData.append('maxPrice',    document.getElementById('mp').value);
-    formData.append('flexDays',    flex);
-    formData.append('bookBy',      document.getElementById('bby').value);
-    formData.append('tier',        tier);
 
-    const resp = await fetch('/', {
+    const resp = await fetch('/.netlify/functions/subscribe', {
       method:  'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body:    new URLSearchParams(formData).toString()
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
+        firstName:   fn,
+        lastName:    ln,
+        email:       em,
+        phone:       ph.replace(/\D/g,''),
+        fromAirport: fCode,
+        toAirport:   tCode,
+        depDate:     document.getElementById('dep').value,
+        retDate:     document.getElementById('ret').value,
+        maxPrice:    document.getElementById('mp').value,
+        flexDays:    flex,
+        bookBy:      document.getElementById('bby').value,
+        tier:        tier,
+      })
     });
 
     if(resp.ok){
