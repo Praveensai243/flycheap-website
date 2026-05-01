@@ -748,6 +748,22 @@ footer { max-width: 1300px; margin: 0 auto; padding: 30px 48px; display: flex; j
 
 <div class="toast" id="toast"></div>
 
+<!-- Hidden Netlify form for form detection -->
+<form name="flycheap-signup" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="firstName"/>
+  <input type="text" name="lastName"/>
+  <input type="email" name="email"/>
+  <input type="text" name="phone"/>
+  <input type="text" name="fromAirport"/>
+  <input type="text" name="toAirport"/>
+  <input type="text" name="depDate"/>
+  <input type="text" name="retDate"/>
+  <input type="text" name="maxPrice"/>
+  <input type="text" name="flexDays"/>
+  <input type="text" name="bookBy"/>
+  <input type="text" name="tier"/>
+</form>
+
 <script>
 // ── AIRPORT DATA ──────────────────────────────────────
 const AP = [
@@ -928,27 +944,28 @@ async function submit(){
   btn.disabled = true;
 
   try {
-    const resp = await fetch('/.netlify/functions/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        firstName:   fn,
-        lastName:    ln,
-        email:       em,
-        phone:       ph.replace(/\D/g,''),
-        fromAirport: fCode,
-        toAirport:   tCode,
-        depDate:     document.getElementById('dep').value,
-        retDate:     document.getElementById('ret').value,
-        maxPrice:    document.getElementById('mp').value,
-        flexDays:    flex,
-        bookBy:      document.getElementById('bby').value,
-        tier:        tier,
-      })
+    const formData = new FormData();
+    formData.append('form-name',   'flycheap-signup');
+    formData.append('firstName',   fn);
+    formData.append('lastName',    ln);
+    formData.append('email',       em);
+    formData.append('phone',       ph.replace(/\D/g,''));
+    formData.append('fromAirport', fCode);
+    formData.append('toAirport',   tCode);
+    formData.append('depDate',     document.getElementById('dep').value);
+    formData.append('retDate',     document.getElementById('ret').value);
+    formData.append('maxPrice',    document.getElementById('mp').value);
+    formData.append('flexDays',    flex);
+    formData.append('bookBy',      document.getElementById('bby').value);
+    formData.append('tier',        tier);
+
+    const resp = await fetch('/', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body:    new URLSearchParams(formData).toString()
     });
 
     if(resp.ok){
-      // Hide slider, show success
       document.getElementById('slider').style.display = 'none';
       const succ = document.getElementById('succ');
       succ.classList.add('vis');
