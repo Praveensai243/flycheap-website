@@ -944,27 +944,34 @@ async function submit(){
   btn.disabled = true;
 
   try {
-
-    const resp = await fetch('/.netlify/functions/subscribe', {
+    const resp = await fetch('https://api.brevo.com/v3/contacts', {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        firstName:   fn,
-        lastName:    ln,
-        email:       em,
-        phone:       ph.replace(/\D/g,''),
-        fromAirport: fCode,
-        toAirport:   tCode,
-        depDate:     document.getElementById('dep').value,
-        retDate:     document.getElementById('ret').value,
-        maxPrice:    document.getElementById('mp').value,
-        flexDays:    flex,
-        bookBy:      document.getElementById('bby').value,
-        tier:        tier,
+      headers: {
+        'accept':       'application/json',
+        'content-type': 'application/json',
+        'api-key':      'YOUR_BREVO_API_KEY_HERE',
+      },
+      body: JSON.stringify({
+        email: em,
+        attributes: {
+          FIRSTNAME:    fn,
+          LASTNAME:     ln,
+          SMS:          ph.replace(/\D/g,''),
+          FROM_AIRPORT: fCode,
+          TO_AIRPORT:   tCode,
+          DEP_DATE:     document.getElementById('dep').value,
+          RET_DATE:     document.getElementById('ret').value,
+          MAX_PRICE:    document.getElementById('mp').value,
+          FLEX_DAYS:    flex,
+          BOOK_BY:      document.getElementById('bby').value,
+          TIER:         tier,
+        },
+        listIds: [8],
+        updateEnabled: true,
       })
     });
 
-    if(resp.ok){
+    if(resp.ok || resp.status === 204){
       document.getElementById('slider').style.display = 'none';
       const succ = document.getElementById('succ');
       succ.classList.add('vis');
